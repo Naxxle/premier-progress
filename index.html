@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+
+<style>
+:root {
+  --red: #ff4655;
+  --cyan: #00e5ff;
+}
+
+body {
+  margin: 0;
+  background: black;
+  font-family: Arial, sans-serif;
+  color: white;
+}
+
+/* dunkler Fade unten */
+.hero::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 120px;
+  background: linear-gradient(transparent, #0f1923);
+}
+
+/* UNTERER UI BEREICH */
+.panel {
+  background: #0f1923;
+  padding: 30px;
+  border-top: 2px solid var(--red);
+}
+
+/* 🔥 SCHWEBENDE ÜBERSCHRIFT */
+.division {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 32px;
+  font-weight: bold;
+  letter-spacing: 6px;
+  color: #ffffff;
+  pointer-events: none;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  position: relative;
+}
+
+.header img {
+  width: 80px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 34px;
+  letter-spacing: 3px;
+}
+
+.sub {
+  color: var(--cyan);
+  letter-spacing: 2px;
+  margin-bottom: 15px;
+}
+
+.bar-bg {
+  height: 40px;
+  background: #0b141c;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #2e3b46;
+}
+
+.bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--red), var(--cyan));
+  box-shadow: 0 0 15px var(--cyan);
+  transition: width 0.4s;
+}
+
+/* 🔥 GLOW CONTAINER ANIMATION */
+@keyframes glowPulse {
+  0% {
+    box-shadow: 0 0 10px rgba(0,229,255,0.4);
+  }
+  50% {
+    box-shadow:
+      0 0 25px rgba(0,229,255,0.9),
+      0 0 50px rgba(0,229,255,0.7),
+      0 0 80px gold;
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(0,229,255,0.4);
+  }
+}
+
+.bar-bg.glow {
+  animation: glowPulse 1.8s infinite ease-in-out;
+}
+
+
+.points {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 26px;
+  color: var(--cyan);
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 18px;
+  font-size: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="hero"></div>
+
+<div class="panel">
+
+  <div class="header">
+    <img src="logo.png">
+    <div>
+      <h1>CROUCH CONTROL</h1>
+      <div class="sub">VALORANT PREMIER</div>
+    </div>
+
+    <!-- ✅ EINZIGE V26 A1 -->
+    <div class="division">V26 A1</div>
+  </div>
+
+  <div class="bar-bg">
+    <div class="bar-fill" id="bar"></div>
+  </div>
+
+  <div class="points" id="pointsText"></div>
+
+  <div class="info">
+    <div style="color:#6aff6a">WIN: +100</div>
+    <div style="color:#ff9a9a">LOSS: +25</div>
+  </div>
+
+</div>
+
+<script>
+  // ===== NUR HIER ÄNDERN =====
+  const currentPoints = 600;
+  // ==========================
+
+  const max = 600;
+  const percent = Math.min((currentPoints / max) * 100, 100);
+
+  const bar = document.getElementById("bar");
+  bar.style.width = percent + "%";
+
+  if (currentPoints >= max) {
+  const barBg = document.querySelector(".bar-bg");
+
+  if (currentPoints >= max) {
+  barBg.classList.add("glow");
+}
+
+  }
+
+  document.getElementById("pointsText").innerText =
+    `${currentPoints} / ${max} Punkte`;
+</script>
+
+</body>
+</html>
